@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pet Valu Mobile UX Redesign — Ananya Panthgani</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23B06D75'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='28' font-style='italic' fill='%23FFF6F5'%3EAP%3C/text%3E%3C/svg%3E"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #F7F5F2;
+  --surface: #FFFFFF;
+  --text: #1A1A1A;
+  --text-muted: #7A7A7A;
+  --accent: #C0001A;
+  --accent-light: #FFF0F0;
+  --border: #E8E4DF;
+  --nav-h: 72px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  background: rgba(247,245,242,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--text); text-decoration: none;
+}
+.nav-logo span { color: var(--accent); }
+.nav-back {
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); text-decoration: none; font-weight: 500;
+  display: flex; align-items: center; gap: 8px; transition: color 0.2s;
+}
+.nav-back:hover { color: var(--accent); }
+.nav-back::before { content: '←'; }
+
+/* HERO */
+.case-hero {
+  padding-top: calc(var(--nav-h) + 80px);
+  padding-bottom: 80px;
+  padding-left: 48px; padding-right: 48px;
+  max-width: 900px; margin: 0 auto;
+}
+.case-eyebrow {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.case-eyebrow::before {
+  content: ''; display: block;
+  width: 24px; height: 1px; background: var(--accent);
+}
+.case-hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 300; line-height: 1.08;
+  letter-spacing: -0.02em; margin-bottom: 24px;
+}
+.case-hero h1 em { font-style: italic; color: var(--accent); }
+.case-hero p.lead {
+  font-size: 17px; font-weight: 300; color: var(--text-muted);
+  line-height: 1.8; max-width: 680px; margin-bottom: 48px;
+}
+.meta-row {
+  display: flex; flex-wrap: wrap; gap: 0;
+  border: 1px solid var(--border); background: var(--surface);
+}
+.meta-item {
+  padding: 20px 32px; border-right: 1px solid var(--border);
+  flex: 1; min-width: 140px;
+}
+.meta-item:last-child { border-right: none; }
+.meta-key {
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); font-weight: 500; margin-bottom: 6px;
+}
+.meta-val { font-size: 14px; color: var(--text); font-weight: 400; }
+
+/* CONTENT */
+.case-section {
+  padding: 72px 48px;
+  max-width: 900px; margin: 0 auto;
+}
+.case-section + .case-section { border-top: 1px solid var(--border); }
+.section-label {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-label::before {
+  content: ''; display: block; width: 24px; height: 1px; background: var(--accent);
+}
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 3.5vw, 46px);
+  font-weight: 300; line-height: 1.1;
+  letter-spacing: -0.01em; margin-bottom: 28px;
+}
+h2 em { font-style: italic; color: var(--accent); }
+p { font-size: 15px; color: var(--text-muted); font-weight: 300; line-height: 1.85; margin-bottom: 16px; }
+p strong { color: var(--text); font-weight: 500; }
+
+/* PAIN GRID */
+.pain-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; background: var(--border);
+  border: 1px solid var(--border); margin-top: 32px;
+}
+.pain-card { background: var(--surface); padding: 28px 24px; }
+.pain-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; font-weight: 300; color: var(--accent); margin-bottom: 12px;
+}
+.pain-card h3 { font-size: 15px; font-weight: 500; margin-bottom: 8px; font-family: 'DM Sans', sans-serif; }
+.pain-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin: 0; }
+
+/* QUOTES */
+.quote-grid { display: grid; gap: 2px; background: var(--border); border: 1px solid var(--border); margin-top: 32px; }
+.quote-card {
+  background: var(--surface); padding: 24px 28px;
+  display: grid; grid-template-columns: 32px 1fr; gap: 16px; align-items: start;
+}
+.quote-icon { font-size: 24px; line-height: 1; }
+.quote-text { font-size: 14px; font-style: italic; color: var(--text); line-height: 1.7; margin-bottom: 8px; }
+.quote-fix { font-size: 12px; color: var(--accent); font-weight: 500; letter-spacing: 0.04em; }
+.quote-fix::before { content: '→ '; }
+
+/* ── THE KEY SECTION: DESIGN SCREENS ── */
+.screens-section {
+  background: var(--text);
+  padding: 80px 48px;
+}
+.screens-inner { max-width: 900px; margin: 0 auto; }
+.screens-section .section-label { color: #FF6B6B; }
+.screens-section .section-label::before { background: #FF6B6B; }
+.screens-section h2 { color: #fff; }
+.screens-section h2 em { color: #FF6B6B; }
+.screens-section > .screens-inner > p { color: #aaa; }
+
+.screens-intro { font-size: 15px; color: #aaa; line-height: 1.8; margin-bottom: 48px; }
+
+/* AFTER screens — 3 phones side by side */
+.after-screens {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 16px;
+}
+.screen-item {}
+.screen-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+  font-weight: 500; margin-bottom: 12px; color: #FF6B6B;
+}
+.phone-frame {
+  background: #111;
+  border: 1px solid #2A2A2A;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.phone-frame img {
+  width: 100%; height: auto; display: block;
+}
+.screen-caption {
+  font-size: 12px; color: #666; font-style: italic;
+  margin-top: 12px; line-height: 1.5;
+}
+
+/* DESIGN DECISIONS callouts */
+.decisions-strip {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; background: #2A2A2A;
+  border: 1px solid #2A2A2A;
+  margin-top: 56px;
+}
+.decision-item {
+  background: var(--text); padding: 28px 24px;
+}
+.decision-screen {
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #FF6B6B; font-weight: 500; margin-bottom: 10px;
+}
+.decision-item h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 500; color: #fff; margin-bottom: 8px;
+}
+.decision-item p { font-size: 12px; color: #888; line-height: 1.6; margin: 0; }
+
+.figma-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 40px;
+  padding: 12px 24px; border: 1px solid #444;
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fff; text-decoration: none; font-weight: 500; transition: all 0.2s;
+}
+.figma-cta:hover { border-color: #FF6B6B; color: #FF6B6B; }
+.figma-cta::after { content: '↗'; }
+
+/* BEFORE SCREENS */
+.before-section {
+  padding: 72px 48px;
+  max-width: 900px; margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+.before-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px; margin-top: 32px;
+}
+.before-item {}
+.before-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted); font-weight: 500; margin-bottom: 10px;
+}
+.before-frame {
+  border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+  background: #f0f0f0;
+}
+.before-frame img { width: 100%; height: auto; display: block; }
+.before-cap { font-size: 11px; color: var(--text-muted); font-style: italic; margin-top: 8px; line-height: 1.4; }
+
+/* LEARNINGS */
+.learnings-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 32px; margin-top: 32px;
+}
+.learning-item h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 500; margin-bottom: 10px; color: var(--text);
+}
+.learning-item p { font-size: 14px; line-height: 1.75; margin: 0; }
+
+/* FOOTER CTA */
+.case-footer {
+  background: var(--surface); border-top: 1px solid var(--border);
+  padding: 80px 48px; text-align: center;
+}
+.case-footer h2 { margin-bottom: 16px; }
+.case-footer p { max-width: 500px; margin: 0 auto 40px; }
+.cta-row { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center;
+  padding: 14px 28px; background: var(--text); color: #fff;
+  font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--accent); }
+.btn-outline {
+  display: inline-flex; align-items: center;
+  padding: 14px 28px; border: 1px solid var(--text); color: var(--text);
+  font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; transition: all 0.2s;
+}
+.btn-outline:hover { background: var(--text); color: #fff; }
+
+footer {
+  background: var(--text); color: #666;
+  padding: 28px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px;
+}
+footer a { color: #666; text-decoration: none; }
+footer a:hover { color: #fff; }
+
+@media (max-width: 860px) {
+  nav { padding: 0 24px; }
+  .case-hero, .case-section, .before-section { padding-left: 24px; padding-right: 24px; }
+  .screens-section { padding-left: 24px; padding-right: 24px; }
+  .case-footer { padding: 60px 24px; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .after-screens { grid-template-columns: 1fr; max-width: 320px; }
+  .decisions-strip { grid-template-columns: 1fr; }
+  .before-grid { grid-template-columns: repeat(2, 1fr); }
+  .learnings-grid { grid-template-columns: 1fr; }
+  .meta-row { flex-direction: column; }
+  .meta-item { border-right: none; border-bottom: 1px solid var(--border); }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Ananya<span>.</span></a>
+  <a href="index.html" class="nav-back">Back to Portfolio</a>
+</nav>
+
+<!-- HERO -->
+<div class="case-hero">
+  <div class="case-eyebrow">UX Case Study — 2026</div>
+  <h1>Pet Valu Mobile <em>UX Redesign</em></h1>
+  <p class="lead">
+    A self-directed concept redesign of Pet Valu's mobile login and checkout experience — built on real customer research, solving real user pain points, within real brand constraints.
+  </p>
+  <div class="meta-row">
+    <div class="meta-item">
+      <div class="meta-key">Role</div>
+      <div class="meta-val">UX Designer (Concept)</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-key">Tool</div>
+      <div class="meta-val">Figma</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-key">Type</div>
+      <div class="meta-val">Mobile-First / UX Research</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-key">Year</div>
+      <div class="meta-val">2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- THE PROBLEM -->
+<div class="case-section">
+  <div class="section-label">The Problem</div>
+  <h2>Pet Valu's online customers were <em>frustrated</em> and leaving.</h2>
+  <p>Pet Valu is one of Canada's largest pet specialty retailers with 800+ stores nationwide. But their online experience was letting down their most loyal customers — the <strong>Devoted Pet Lovers (DPL)</strong>.</p>
+  <p>Before designing anything, I spent time on petvalu.ca on mobile and researched real customer reviews on <strong>Trustpilot</strong> and the <strong>Better Business Bureau</strong>. Three critical pain points emerged consistently.</p>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-num">01</div>
+      <h3>Repeated Logouts</h3>
+      <p>Customers were unexpectedly logged out mid-session, forced to reset passwords and restart their shopping journey.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-num">02</div>
+      <h3>Checkout Confusion</h3>
+      <p>No visibility into where they were in checkout — leading to abandoned carts and repeated payment attempts.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-num">03</div>
+      <h3>Vague Delivery Info</h3>
+      <p>"5–7 business days" with no concrete date — causing anxiety and eroding trust with loyal customers.</p>
+    </div>
+  </div>
+</div>
+
+<!-- RESEARCH -->
+<div class="case-section">
+  <div class="section-label">Research & Insights</div>
+  <h2>What real <em>customers</em> were saying.</h2>
+  <p>I analyzed reviews across Trustpilot and the BBB to understand the real emotional experience. The feedback was consistent — <strong>the website was breaking trust</strong> with the very customers who loved the brand most.</p>
+  <div class="quote-grid">
+    <div class="quote-card">
+      <div class="quote-icon">🔐</div>
+      <div>
+        <p class="quote-text">"I keep getting logged out and have to reset my password every time"</p>
+        <p class="quote-fix">Design fix: Persistent "Keep me signed in" toggle</p>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-icon">💳</div>
+      <div>
+        <p class="quote-text">"The payment page kept glitching and I didn't know if my order went through"</p>
+        <p class="quote-fix">Design fix: Friendly error message + secure checkout badge</p>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-icon">📦</div>
+      <div>
+        <p class="quote-text">"Shipping took nearly two weeks with no updates"</p>
+        <p class="quote-fix">Design fix: Exact delivery date — "Arrives by Wednesday April 5"</p>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-icon">👤</div>
+      <div>
+        <p class="quote-text">"It kept forcing me to check out as a guest"</p>
+        <p class="quote-fix">Design fix: Guest as secondary option, account framed as rewarding</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── REDESIGNED SCREENS — THE MAIN EVENT ── -->
+<div class="screens-section">
+  <div class="screens-inner">
+    <div class="section-label">The Redesign</div>
+    <h2>3 screens. 3 <em>real problems</em> solved.</h2>
+    <p class="screens-intro">
+      Every screen decision came directly from a real customer complaint. Designed in Figma, mobile-first, within Pet Valu's existing brand guidelines with full AODA accessibility compliance.
+    </p>
+
+    <div class="after-screens">
+      <div class="screen-item">
+        <div class="screen-label">Screen 1 — Login</div>
+        <div class="phone-frame">
+          <img src="sign_in_page.png" alt="Redesigned Pet Valu login screen with Keep me signed in toggle and guest as secondary option" loading="lazy"/>
+        </div>
+        <p class="screen-caption">"Keep me signed in" toggle addresses #1 complaint. Guest checkout is secondary — account creation framed as earning rewards.</p>
+      </div>
+      <div class="screen-item">
+        <div class="screen-label">Screen 2 — Checkout</div>
+        <div class="phone-frame">
+          <img src="screen-2_checkout.png" alt="Redesigned Pet Valu checkout screen with 4-step progress bar and exact delivery date" loading="lazy"/>
+        </div>
+        <p class="screen-caption">4-step progress bar eliminates checkout anxiety. "Arrives by Wednesday April 5" replaces vague "5–7 business days."</p>
+      </div>
+      <div class="screen-item">
+        <div class="screen-label">Screen 3 — Payment</div>
+        <div class="phone-frame">
+          <img src="paynemnt_page.png" alt="Redesigned Pet Valu payment screen with security badge and friendly error state" loading="lazy"/>
+        </div>
+        <p class="screen-caption">Security trust badge builds confidence. Friendly error state — "Your card was declined — please check your details" — replaces generic error codes.</p>
+      </div>
+    </div>
+
+    <!-- DECISION CALLOUTS -->
+    <div class="decisions-strip">
+      <div class="decision-item">
+        <div class="decision-screen">Login Screen</div>
+        <h3>"Keep me signed in" Toggle</h3>
+        <p>Directly solves the #1 complaint. Gives users control and immediately rebuilds trust in the experience.</p>
+      </div>
+      <div class="decision-item">
+        <div class="decision-screen">Checkout Screen</div>
+        <h3>Exact Delivery Date</h3>
+        <p>"Arrives by Wednesday April 5" — a concrete date that sets clear expectations and removes shipping anxiety.</p>
+      </div>
+      <div class="decision-item">
+        <div class="decision-screen">Payment Screen</div>
+        <h3>Friendly Error State</h3>
+        <p>Plain language error message tells users what went wrong and what to do — not a generic error code.</p>
+      </div>
+    </div>
+
+    <a href="https://www.figma.com/design/mvTjyHX3LAu9SWmgQ18Ohf/Pet-Valu-UX-conceptlogin-checkout-Redesgin?t=OOeXAE5GVW02jz78-1" target="_blank" class="figma-cta">Open Full Figma File</a>
+  </div>
+</div>
+
+<!-- BEFORE SCREENS -->
+<div class="before-section">
+  <div class="section-label">Before</div>
+  <h2>What the <em>original</em> experience looked like.</h2>
+  <p>These are the existing Pet Valu screens I researched before designing — the baseline that real customers were frustrated with.</p>
+  <div class="before-grid">
+    <div class="before-item">
+      <div class="before-label">Original Login</div>
+      <div class="before-frame">
+        <img src="before-login.png" alt="Original Pet Valu login screen" loading="lazy"/>
+      </div>
+      <p class="before-cap">No "stay signed in" option — users logged out repeatedly</p>
+    </div>
+    <div class="before-item">
+      <div class="before-label">Original Signup</div>
+      <div class="before-frame">
+        <img src="before-signup.png" alt="Original Pet Valu signup screen" loading="lazy"/>
+      </div>
+      <p class="before-cap">Guest checkout pushed as primary — account creation buried</p>
+    </div>
+    <div class="before-item">
+      <div class="before-label">Original Cart</div>
+      <div class="before-frame">
+        <img src="before-cart.png" alt="Original Pet Valu cart screen" loading="lazy"/>
+      </div>
+      <p class="before-cap">No progress indicator — users didn't know how many steps remained</p>
+    </div>
+    <div class="before-item">
+      <div class="before-label">Original Verify</div>
+      <div class="before-frame">
+        <img src="before-verify.png" alt="Original Pet Valu verification screen" loading="lazy"/>
+      </div>
+      <p class="before-cap">Unclear flow, poor error handling, vague shipping timeline</p>
+    </div>
+  </div>
+</div>
+
+<!-- EXPECTED IMPACT -->
+<div class="case-section">
+  <div class="section-label">Expected Impact</div>
+  <h2>Design decisions tied to <em>business outcomes.</em></h2>
+  <p>Based on benchmark data from similar e-commerce checkout optimizations, here's the estimated impact of the proposed redesign:</p>
+  <div class="pain-grid" style="margin-top:32px;">
+    <div class="pain-card">
+      <div class="pain-num">25%</div>
+      <h3>Reduced cart abandonment</h3>
+      <p>Progress indicator + exact delivery dates shown to decrease checkout drop-off based on Baymard Institute data.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-num">40%</div>
+      <h3>Fewer login support tickets</h3>
+      <p>"Keep me signed in" toggle addresses the single most-reported complaint, reducing password reset volume.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-num">15%</div>
+      <h3>Higher account signups</h3>
+      <p>Reframing "Create account" as rewards-driven rather than a barrier — estimated lift in account creation at checkout.</p>
+    </div>
+  </div>
+  <p style="margin-top:32px;font-style:italic;font-size:13px;color:var(--text-muted);">
+    *Estimates based on industry benchmarks (Baymard Institute, Nielsen Norman Group). Real validation would require A/B testing with Pet Valu's actual customer base.
+  </p>
+</div>
+
+<!-- LEARNINGS -->
+<div class="case-section">
+  <div class="section-label">Key Takeaways</div>
+  <h2>What I <em>learned.</em></h2>
+  <div class="learnings-grid">
+    <div class="learning-item">
+      <h3>Research before design</h3>
+      <p>Reading real customer reviews before opening Figma completely changed what I designed. Every screen decision came from a real complaint — not what looked good.</p>
+    </div>
+    <div class="learning-item">
+      <h3>Constraints are creative</h3>
+      <p>Working within Pet Valu's brand guidelines pushed me to focus on UX improvements rather than visual ones. The red, the logo, the style — all kept intact.</p>
+    </div>
+    <div class="learning-item">
+      <h3>Error states matter</h3>
+      <p>Most designers only design the happy path. Designing what happens when something goes wrong — and making it friendly — is where real UX value is created.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER CTA -->
+<div class="case-footer">
+  <div class="section-label" style="justify-content:center;margin-bottom:16px;">Want to see more?</div>
+  <h2>Check out my other work or <em>get in touch.</em></h2>
+  <p>I'd love to talk through my design process or discuss how I can help with your project.</p>
+  <div class="cta-row">
+    <a href="index.html" class="btn-outline">Back to Portfolio</a>
+    <a href="mailto:ananya.panthagani@gmail.com" class="btn-primary">Get In Touch</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Ananya Panthgani</span>
+  <a href="index.html">Back to Portfolio</a>
+</footer>
+
+</body>
+</html>
